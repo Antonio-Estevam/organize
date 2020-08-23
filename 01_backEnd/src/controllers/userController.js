@@ -1,23 +1,43 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize ('gastos_control','root','navy1995',{
-    host: "localhost",
-    dialect:"mysql"
-});
+const connection = require('../models/connection');
+const { json } = require('express');
 
 module.exports = { 
-    index(req,res){     
-        sequelize.query("SELECT nome,id,imgPerfil FROM user where email = 'jhonnyimmbe@gmail.com' and senha='123' ",{ type: sequelize.QueryTypes.SELECT})
-        .then(function(users) {
-        console.log(users);
-        }).catch(function(error){
-            console.log("Falha ao se conectar "+error);    
-        }) 
-      return res.send({"msg":"ok"});
+   async index(req,res){          
+                
+        await connection.connect();
+        
+        await connection.query('SELECT * FROM gastos_control.user;', function (error, results, fields) {
+        if (error) throw error;
+        console.log('The solution is: ');
+        res.send(results[2])
+        });
+        
+        
+        await connection.end();
     },
 
-    create(req,res){
+    async create(req,res){ 
+        console.log();
+
+        await connection.connect();
+
+        const dados = req.body;
+        
+        //{'Lucas', 'Silva', '1997-01-15', 'lucas.silva@tt.com', 'prty77', '1200', 'sdfghjklldui9euihfieuhfhfy'}; 
+
+        await connection.query('INSERT INTO gastos_control.user SET ?',
+        dados , function (error, results, fields) {
+            if (error) throw error;
+            console.log("cadastrado com sucesso!!");
+          });
+           
+        await connection.end(); 
+
+        res.send({"msg":"Cadastrado com sucesso"})
         
     }
 
 
 }
+
+//INSERT INTO `gastos_control`.`user` (`nome`, `sobre_nm`, `dt_nasc`, `email`, `senha`, `renda_mensal`, `imgPerfil`) VALUES ('Lucas', 'Silva', '1997-01-15', 'lucas.silva@tt.com', 'prty77', '1200', 'sdfghjklldui9euihfieuhfhfy');
