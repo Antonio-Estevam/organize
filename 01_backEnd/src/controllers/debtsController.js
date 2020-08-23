@@ -5,7 +5,7 @@ module.exports = {
                 
         await connection.connect();
         
-        await connection.query('SELECT * FROM gastos_control.user;', function (error, results, fields) {
+        await connection.query('SELECT * FROM gastos_control.contas;', function (error, results, fields) {
         if (error) throw error;
         console.log('The solution is: ');
         res.send(results)
@@ -22,7 +22,7 @@ module.exports = {
 
         const dados = req.body;
 
-        await connection.query('INSERT INTO gastos_control.user SET ?',
+        await connection.query('INSERT INTO gastos_control.contas SET ?',
         dados , function (error, results, fields) {
             if (error) throw error;
             console.log("cadastrado com sucesso!!");
@@ -30,11 +30,10 @@ module.exports = {
            
         await connection.end(); 
 
-        res.send({"msg":"Cadastrado com sucesso"})
+        res.send({"msq":"cadastrado com sucesso"});
         
     }
 
 
 }
 
-//INSERT INTO `gastos_control`.`user` (`nome`, `sobre_nm`, `dt_nasc`, `email`, `senha`, `renda_mensal`, `imgPerfil`) VALUES ('Lucas', 'Silva', '1997-01-15', 'lucas.silva@tt.com', 'prty77', '1200', 'sdfghjklldui9euihfieuhfhfy');
