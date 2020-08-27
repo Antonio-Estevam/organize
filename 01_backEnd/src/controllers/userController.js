@@ -36,5 +36,3 @@ module.exports = {
 
 
 }
-
-//INSERT INTO `gastos_control`.`user` (`nome`, `sobre_nm`, `dt_nasc`, `email`, `senha`, `renda_mensal`, `imgPerfil`) VALUES ('Lucas', 'Silva', '1997-01-15', 'lucas.silva@tt.com', 'prty77', '1200', 'sdfghjklldui9euihfieuhfhfy');
